@@ -9,12 +9,13 @@ def build(name, folders=None, files=None, template=None):
     
     project_path = Path(name)
     project_path.mkdir(exist_ok=True)
-    click.echo(f"[+] Project `{name}` is created")
     
     # Handle template
     if template:
         if template not in templates.TEMPLATES:
             click.echo(f"[!] Unknown template: {template}")
+            return
+
         click.echo(f"[+] Using template: {template}")
         config = templates.TEMPLATES.get(template, {})
         folders = config.get("folders", [])
@@ -40,3 +41,4 @@ def build(name, folders=None, files=None, template=None):
                 click.echo(f"[+] Created: {name}/{path}")
             except Exception as e:
                 click.echo(f"[!] Failed to create {path}: {e}")
+    click.echo(f"[+] Project `{name}` is created")

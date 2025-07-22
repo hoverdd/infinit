@@ -12,7 +12,10 @@ def cli():
 @click.option("-t", "--template", help="Predefined template (basic, web)")
 def create(name, folders, files, template):
     """Create project structure"""
-    builder.build(name, folders=folders, files=files, template=template)
+    try:
+        builder.build(name, folders=folders, files=files, template=template)
+    except ValueError as e:
+        click.secho(f"[!] Error: {e}", fg="red")
 
 if __name__ == "__main__":
     cli()
